@@ -1,0 +1,28 @@
+{
+  "articles":[
+    {
+      "url":"https://store.vaporart.it/images/prodotti/7-leaves3.jpg",
+      "prodotto":"7 LEAVES 10ml",
+      "descrizione":"Un sapore forte e delizioso, un mix perfetto creato con una selezione accurata delle sette migliori foglie di tabacco.",
+      "prezzo":"5,45 $"
+    },
+    {
+      "url":"https://store.vaporart.it/images/prodotti/img_store_kashmir4.jpg",
+      "prodotto":"KASHMIR 10ml",
+      "descrizione":"E’ un liquido tabaccoso ideale per smettere di fumare, aromatizzato con tabacco latakia e tabacco fire-cured, due tabacchi organici microfiltrati, in grado di garantire longevità della resistenza anche su starter kit.",
+      "prezzo":"5,85 $"
+    },
+    {
+      "url":"https://store.vaporart.it/images/prodotti/black-pearl3.jpg",
+      "prodotto":"BLACK PEARL 10ml",
+      "descrizione":"Un mix deciso ma delicato di aromi fruttati tra cui spiccano le note gustose di mirtillo, fragola e cocco.",
+      "prezzo":"6,00 $"
+    },
+    {
+      "url":"https://store.vaporart.it/images/prodotti/img_store_BEACH-PARTYALTO.jpg",
+      "prodotto":"BEACH PARTY 10ml",
+      "descrizione":"Una granita ghiacciata di succo di melograno e melone bianco.",
+      "prezzo":"7,50 $"
+    }
+  ]
+}

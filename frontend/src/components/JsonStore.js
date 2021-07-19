@@ -11,7 +11,8 @@ const JsonStore = createStore({
         title: '',
         option: '',
         carrello: false
-      }
+      },
+      articles:[]
     }
   },
   getters: {
@@ -23,6 +24,12 @@ const JsonStore = createStore({
     },
     carrello: state => {
       return state.options.carrello
+    },
+    article: (state, index) =>{
+      return state.articles[index]
+    },
+    articles: state=>{
+      return state.articles
     }
   },
   mutations: {
@@ -30,6 +37,9 @@ const JsonStore = createStore({
       state.options.title = obj.title,
       state.options.option = obj.option,
       state.options.carrello = obj.carrello
+    },
+    articlesMutation(state, obj){
+      state.articles=obj.articles
     }
   },
   actions: {
@@ -42,6 +52,21 @@ const JsonStore = createStore({
         let json=JSON.parse(response.data)
         console.log(json)
         commit("optionsMutation", json);
+
+      })
+      .catch(function (error) {
+        // handle error
+        console.error(error);
+
+      })
+    },
+    articlesAction({commit}) {
+      const path='/negozio/articles/'
+      axios.get(path)
+      .then(function (response) {
+        let json=JSON.parse(response.data)
+        console.log(json)
+        commit("articlesMutation", json);
 
       })
       .catch(function (error) {
