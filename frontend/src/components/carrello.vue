@@ -1,11 +1,19 @@
-const Carrello=app.component('carrello', {
+<template>
+  <h1>{{count}}</h1>
+</template>
+
+<script>
+export default {
+  name: 'Carrello',
   data() {
     return {
       count: 0
     }
-  },
-  template: `
-    <button @click="count++">
-      You clicked me {{ count }} times.
-    </button>`
-})
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+
+</style>

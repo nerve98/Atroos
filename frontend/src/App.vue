@@ -11,10 +11,10 @@
           <li class="dropdown-item">{{this.user.nome+" "+this.user.cognome}}
           </li>
           <div v-if="!carrello">
-            <li><a class="dropdown-item" v-on:click="getJsonData('/carrello/options/')">{{option}}</a></li>
+            <li><router-link to="/carrello"><NavLink v-on:click="getJsonData('/carrello/options/')">{{option}}</NavLink></router-link></li>
           </div>
           <div v-else>
-            <li><a class="dropdown-item" v-on:click="getJsonData('/negozio/options/')">{{option}}</a></li>
+            <li><router-link to="/negozio"><NavLink v-on:click="getJsonData('/negozio/options/')">{{option}}</NavLink></router-link></li>
           </div>
         </ul>
       </div>
@@ -25,22 +25,17 @@
 
 
 </nav>
-<negozio/>
+<router-view/>
 
 </template>
 
 <script>
-import Negozio from './components/Negozio.vue'
-import JsonStore from './components/JsonStore.js'
 
+import JsonStore from './components/JsonStore.js'
 export default {
   name: 'App',
-  components: {
-    Negozio
-  },
   data(){
     return {
-
       user:{
         userId: "5e4fde5d21146d12587ffd98",
         username: "gian98",
@@ -50,7 +45,6 @@ export default {
     }
   },
   methods:{
-
     iniziali: function(){
       return this.user.nome.charAt(0)+this.user.cognome.charAt(0)
     },
@@ -63,7 +57,6 @@ export default {
   getJsonData: function(path){
     JsonStore.dispatch('optionsAction',path)
   }
-
 },
 created() {
   this.getJsonData('/negozio/options/')
@@ -79,9 +72,7 @@ computed: {
     console.log(JsonStore.getters.carrello)
     return JsonStore.getters.carrello;
   }
-
 }
-
 }
 </script>
 
@@ -90,7 +81,6 @@ computed: {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
 }
 .my_btn{
   backgroundColor:'#D6C3C9';
