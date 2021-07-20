@@ -30,7 +30,6 @@
 </template>
 
 <script>
-
 import JsonStore from './components/JsonStore.js'
 export default {
   name: 'App',

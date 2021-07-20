@@ -16,7 +16,5 @@ app.mount('#app')*/
 const myApp = createApp(App).use(router)
 myApp.use(JsonStore)
 
-// add more functionality to myV3App
 
-// now we're ready to mount
 myApp.mount('#app')
