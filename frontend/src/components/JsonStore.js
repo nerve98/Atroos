@@ -25,8 +25,8 @@ const JsonStore = createStore({
     carrello: state => {
       return state.options.carrello
     },
-    article: (state, index) =>{
-      return state.articles[index]
+    article: state=> (id) =>{
+      return state.articles[id]
     },
     articles: state=>{
       return state.articles

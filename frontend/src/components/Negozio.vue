@@ -2,13 +2,13 @@
   <div class="container">
     <div class="row justify-content-md-center">
       <div class="row" v-for="(temp,index) in chunk" :key="index">
-        <div v-for="(article, index) in temp" :key="index" class="col col-4">
+        <div v-for="(article, index2) in temp" :key="index2" class="col col-4">
           <div class="card" style="width: 18rem;">
             <img v-bind:src="article.url" class="card-img-top" />
             <div class="card-body">
               <h5 class="card-title">{{article.prodotto}}</h5>
               <p class="card-text">{{article.descrizione}}</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <router-link v-bind:to="/negozio/+parseInt(index*3+index2)"><NavLink class="btn btn-primary">Seleziona</NavLink></router-link>
             </div>
           </div>
         </div>
