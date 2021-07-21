@@ -10,68 +10,96 @@
 
           <li class="dropdown-item">{{this.user.nome+" "+this.user.cognome}}
           </li>
-          <div v-if="!carrello">
-            <li><router-link to="/carrello"><NavLink v-on:click="getJsonData('/carrello/options/')">{{option}}</NavLink></router-link></li>
+          <div v-if="!carrello" >
+            <li><router-link to="/carrello"><NavLink>Torna al carrello</NavLink></router-link></li>
           </div>
           <div v-else>
-            <li><router-link to="/negozio"><NavLink v-on:click="getJsonData('/negozio/options/')">{{option}}</NavLink></router-link></li>
+            <li><router-link to="/negozio"><NavLink>Torna al negozio</NavLink></router-link></li>
           </div>
         </ul>
       </div>
     </div>
   </div>
-
-  <h3>{{title}}</h3>
-
-
+  <div v-if="carrello">
+    <h3>Carrello</h3>
+  </div>
+  <div v-else>
+    <h3>Negozio</h3>
+  </div>
 </nav>
-<router-view/>
+<router-view v-bind:setCarrello="setCarrello"/>
 
 </template>
 
 <script>
 import JsonStore from './components/JsonStore.js'
+import axios from 'axios'
+
 export default {
   name: 'App',
-  data(){
+  data:()=>{
     return {
-      user:{
-        userId: "5e4fde5d21146d12587ffd98",
-        username: "gian98",
-        nome: "Gianluca",
-        cognome: "Canova"
-      },
+      user: {},
+      carrello: false,
     }
   },
   methods:{
     iniziali: function(){
       return this.user.nome.charAt(0)+this.user.cognome.charAt(0)
     },
-    /*getData: function() {
-    //do something with users
-    this.title=JsonStore.state.options.title
-    this.option=JsonStore.state.options.option
-    this.carrello=JsonStore.state.options.carrello
-  },*/
-  getJsonData: function(path){
-    JsonStore.dispatch('optionsAction',path)
-  }
-},
-created() {
-  this.getJsonData('/negozio/options/')
-},
-computed: {
-  title(){
-    return JsonStore.getters.title;
+    setCarrello: function(newCar){
+      this.carrello=newCar
+    },
+    getJsonData: function(path){
+      JsonStore.dispatch('optionsAction',path)
+    },
+    setUser: function(){
+      JsonStore.dispatch('userAction',this.user)
+    },
+    callData:async function(path){
+      return new Promise(resolve=>{
+
+        axios.get(path).then((resp)=>{
+          let json=JSON.parse(resp.data)
+          console.log(json)
+          resolve(json[0])
+        }).catch( (err) =>{
+          console.error(err);
+        })
+
+
+
+
+      })
+
+
+
+    }
+
+
   },
-  option(){
-    return JsonStore.getters.option;
+
+  computed: {
+    getUser(){
+      return JsonStore.getters.user;
+    },
+    title(){
+      return JsonStore.getters.title;
+    },
+    option(){
+      return JsonStore.getters.option;
+    },
+    /*carrello(){
+      console.log(JsonStore.getters.carrello)
+      return JsonStore.getters.carrello;
+    },*/
+
   },
-  carrello(){
-    console.log(JsonStore.getters.carrello)
-    return JsonStore.getters.carrello;
+  async created(){
+    let json=await this.callData('/user/5e4fde5d21146d12587ffd98')
+    this.user=json
+    this.setUser()
   }
-}
 }
 </script>
 

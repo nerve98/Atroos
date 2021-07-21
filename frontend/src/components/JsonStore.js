@@ -5,17 +5,23 @@ import axios from 'axios'
 const axios =internalInstance.appContext.config.globalProperties.axios;
 */
 const JsonStore = createStore({
+
   state () {
     return {
+      user:{},
       options: {
         title: '',
         option: '',
         carrello: false
       },
-      articles:[]
+      articles:[],
+      orders:[]
     }
   },
   getters: {
+    user: state => {
+      return state.user
+    },
     title: state => {
       return state.options.title
     },
@@ -30,6 +36,12 @@ const JsonStore = createStore({
     },
     articles: state=>{
       return state.articles
+    },
+    orders: state=>{
+      return state.orders
+    },
+    ordersLength: state=>{
+      return state.orders.length
     }
   },
   mutations: {
@@ -39,10 +51,23 @@ const JsonStore = createStore({
       state.options.carrello = obj.carrello
     },
     articlesMutation(state, obj){
-      state.articles=obj.articles
-    }
+      state.articles=obj
+    },
+    ordersMutation(state, obj){
+      state.orders=obj
+      console.log("ordersMutation: "+state.orders)
+    },
+    userMutation(state, obj){
+      state.user=obj
+      console.log("userMutation: "+state.user)
+    },
   },
   actions: {
+    userAction({commit}, u) {
+
+        commit("userMutation", u);
+
+    },
     optionsAction({commit},path) {
 
 
@@ -74,6 +99,22 @@ const JsonStore = createStore({
         console.error(error);
 
       })
+    },
+    async ordersAction({commit}) {
+
+
+      const path='/negozio/carrello/'+this.state.user.user_id
+      try {
+        const resp=await axios.get(path)
+
+        let json=JSON.parse(resp.data)
+        console.log(json)
+        commit("ordersMutation", json);
+      } catch (err) {
+        // Handle Error Here
+        console.error(err);
+      }
+
     }
   }
 })
